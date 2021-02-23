@@ -32,14 +32,14 @@ void rgb2grayscale(string img)
 {
     Mat im_rgb  = imread(img);
     Mat im_gray;
-    cvtColor(im_rgb,im_gray,CV_RGB2GRAY);
+    cvtColor(im_rgb,im_gray,COLOR_RGB2GRAY);
 }
 
 int main( int argc, char** argv)
 {
 
     // Read source image.
-    Mat im_src = imread("empty.jpg",CV_LOAD_IMAGE_GRAYSCALE);
+    Mat im_src = imread("empty.jpg",IMREAD_GRAYSCALE);
 
     // Destination image. The aspect ratio of the book is 3/4
     Size size(338,778);
