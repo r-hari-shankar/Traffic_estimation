@@ -45,7 +45,9 @@ int main( int argc, char** argv)
 {
 
     // Read source image.
-    Mat source = imread("empty.jpg", cv::COLOR_BGR2GRAY);
+    Mat src = imread("empty.jpg");
+    Mat source;
+    cvtColor(src,source,COLOR_BGR2GRAY);
     //creating clone of the original image
     Mat temp = source.clone();
     // Set data for mouse event
