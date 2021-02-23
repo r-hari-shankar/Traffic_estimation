@@ -54,7 +54,7 @@ int main( int argc, char** argv)
 
     cout << "Click points in clockwise manner starting from top left" << endl;
     // Show image and wait for 4 clicks.
-    imshow("Original Image", im_temp);
+    imshow("Original Image", temp);
     // Set the callback function for any mouse event
     setMouseCallback("Image", mouseClick, &data);
     waitKey(0);
