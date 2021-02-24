@@ -1,7 +1,8 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include "angleCorrection.hpp"
 
-cv::Mat changePerspective(cv::Mat img, std::vector<cv::Point2f>corner) {
+/*cv::Mat changePerspective(cv::Mat img, std::vector<cv::Point2f>corner) {
     std::vector<cv::Point2f> desiredCorner;  // this vector contains my desired location for final points
     desiredCorner.push_back(cv::Point2f(472,52));   // top left corner
     desiredCorner.push_back(cv::Point2f(472,830));  // bottom left corner
@@ -18,7 +19,7 @@ cv::Mat cropImage(cv::Mat img) {
     cv::Rect crop_region(472,52,328,778);
     cv::Mat im = img(crop_region);
     return im;
-}
+}*/
 
 void mouseClick(int evt, int x, int y, int flags, void* data_ptr)
 {
