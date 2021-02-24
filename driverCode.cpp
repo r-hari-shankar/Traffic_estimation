@@ -48,12 +48,12 @@ int main( int argc, char** argv)
     cv::imshow("SelectedPoints", inputImage);
     cv::Mat angleCorrectedImage = changePerspective(originalImage, points);
     cv::imshow("New Perspective", angleCorrectedImage);
-    int n = cv::waitKey(0);
+    cv::waitKey(0);
     std::string n1 = s2 + s1;
     cv::imwrite(n1,angleCorrectedImage);
     cv::Mat croppedImage = cropImage(angleCorrectedImage);
     cv::imshow("New Perspective + Cropped", croppedImage);
-    int k = cv::waitKey(0);
+    cv::waitKey(0);
     std::string n2 = s3 + s1;
     cv::imwrite(n2,croppedImage);
 }
