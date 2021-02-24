@@ -2,25 +2,6 @@
 #include <opencv2/opencv.hpp>
 #include "angleCorrection.hpp"
 
-/*cv::Mat changePerspective(cv::Mat img, std::vector<cv::Point2f>corner) {
-    std::vector<cv::Point2f> desiredCorner;  // this vector contains my desired location for final points
-    desiredCorner.push_back(cv::Point2f(472,52));   // top left corner
-    desiredCorner.push_back(cv::Point2f(472,830));  // bottom left corner
-    desiredCorner.push_back(cv::Point2f(800,830));  // bottom right corner
-    desiredCorner.push_back(cv::Point2f(800,52));   // top right corner
-
-    cv::Mat H = cv::findHomography(corner, desiredCorner);  // Find the approximate homography for the image
-    cv::Mat newPerspectiveImage;
-    cv::warpPerspective(img, newPerspectiveImage, H, img.size());  // map all the points to new points 
-    return newPerspectiveImage;
-}
-
-cv::Mat cropImage(cv::Mat img) {
-    cv::Rect crop_region(472,52,328,778);
-    cv::Mat im = img(crop_region);
-    return im;
-}*/
-
 void mouseClick(int evt, int x, int y, int flags, void* data_ptr)
 {
     if  ( evt == cv::EVENT_LBUTTONDOWN ){
@@ -54,8 +35,20 @@ int main( int argc, char** argv)
     cv::imshow("SelectedPoints", inputImage);
     cv::Mat angleCorrectedImage = changePerspective(originalImage, points);
     cv::imshow("New Perspective", angleCorrectedImage);
-    cv::waitKey(0);
+    int n = cv::waitKey(0);
+    if(n=='t'){
+        cv::imwrite("perspective_traffic.jpg",angleCorrectedImage);
+    }
+    else{
+        cv::imwrite("perspective_empty.jpg",angleCorrectedImage);
+    }
     cv::Mat croppedImage = cropImage(angleCorrectedImage);
     cv::imshow("New Perspective + Cropped", croppedImage);
-    cv::waitKey(0);
+    int k = cv::waitKey(0);
+    if(k=='t'){
+        cv::imwrite("cropped_traffic.jpg",croppedImage);
+    }
+    else{
+        cv::imwrite("cropped_empty.jpg",croppedImage);
+    }
 }
