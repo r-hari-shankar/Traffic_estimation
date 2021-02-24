@@ -24,6 +24,10 @@ int main( int argc, char** argv)
         std::cout << "Could not read the image:" << argv[1]<< std::endl;
         return 1;
     }
+    
+    std::string s1 = argv[1];
+    std::string s2 = "perspective_";
+    std::string s3 = "cropped_";
     cv::Mat inputImage = originalImage.clone();
     std::vector<cv::Point2f> points;
     std::cout << "Click Order: TL, BL, BR, TR" << std::endl;
@@ -45,19 +49,11 @@ int main( int argc, char** argv)
     cv::Mat angleCorrectedImage = changePerspective(originalImage, points);
     cv::imshow("New Perspective", angleCorrectedImage);
     int n = cv::waitKey(0);
-    if(n=='t'){
-        cv::imwrite("perspective_traffic.jpg",angleCorrectedImage);
-    }
-    else{
-        cv::imwrite("perspective_empty.jpg",angleCorrectedImage);
-    }
+    std::string n1 = s2 + s1;
+    cv::imwrite(n1,angleCorrectedImage);
     cv::Mat croppedImage = cropImage(angleCorrectedImage);
     cv::imshow("New Perspective + Cropped", croppedImage);
     int k = cv::waitKey(0);
-    if(k=='t'){
-        cv::imwrite("cropped_traffic.jpg",croppedImage);
-    }
-    else{
-        cv::imwrite("cropped_empty.jpg",croppedImage);
-    }
+    std::string n2 = s3 + s1;
+    cv::imwrite(n2,croppedImage);
 }
