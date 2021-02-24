@@ -1,6 +1,25 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
+cv::Mat changePerspective(cv::Mat img, std::vector<cv::Point2f>corner) {
+    std::vector<cv::Point2f> desiredCorner;  // this vector contains my desired location for final points
+    desiredCorner.push_back(cv::Point2f(472,52));   // top left corner
+    desiredCorner.push_back(cv::Point2f(472,830));  // bottom left corner
+    desiredCorner.push_back(cv::Point2f(800,830));  // bottom right corner
+    desiredCorner.push_back(cv::Point2f(800,52));   // top right corner
+
+    cv::Mat H = cv::findHomography(corner, desiredCorner);  // Find the approximate homography for the image
+    cv::Mat newPerspectiveImage;
+    cv::warpPerspective(img, newPerspectiveImage, H, img.size());  // map all the points to new points 
+    return newPerspectiveImage;
+}
+
+cv::Mat cropImage(cv::Mat img) {
+    cv::Rect crop_region(472,52,328,778);
+    cv::Mat im = img(crop_region);
+    return im;
+}
+
 void mouseClick(int evt, int x, int y, int flags, void* data_ptr)
 {
     if  ( evt == cv::EVENT_LBUTTONDOWN ){
@@ -16,7 +35,7 @@ int main( int argc, char** argv)
     cv::Mat originalImage = cv::imread(argv[1], cv::IMREAD_GRAYSCALE);
     cv::Mat inputImage = originalImage.clone();
     std::vector<cv::Point2f> points;
-    std::cout << "Click Order: TL, TR, BR, BL" << std::endl;
+    std::cout << "Click Order: TL, BL, BR, TR" << std::endl;
     cv::imshow("InputImage", inputImage);
     cv::setMouseCallback("InputImage", mouseClick, &points);
     cv::waitKey(0);
@@ -32,5 +51,10 @@ int main( int argc, char** argv)
     }
     cv::destroyWindow("InputImage");
     cv::imshow("SelectedPoints", inputImage);
+    cv::Mat angleCorrectedImage = changePerspective(originalImage, points);
+    cv::imshow("New Perspective", angleCorrectedImage);
+    cv::waitKey(0);
+    cv::Mat croppedImage = cropImage(angleCorrectedImage);
+    cv::imshow("New Perspective + Cropped", croppedImage);
     cv::waitKey(0);
 }
