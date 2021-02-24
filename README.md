@@ -14,3 +14,4 @@ Follow these simple steps to execute the program
     <t> Note: if improper or no imput is provided an error will be shown.</i>
 5) The above inputs will run the program and the user will be prompted to mark the 4 points on which angle correction and frame cropping is to be performed.
 6) Press any key to view the perspective and cropped images .These images are also stored in the file locally on your system.
+7) Use "make clean" command to remove the object files.
