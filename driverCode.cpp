@@ -32,7 +32,16 @@ void mouseClick(int evt, int x, int y, int flags, void* data_ptr)
 
 int main( int argc, char** argv)
 {
+    if(argv[1]==NULL){
+        std::cout << "Image not given in input" << std::endl;
+        return 1;
+    }
     cv::Mat originalImage = cv::imread(argv[1], cv::IMREAD_GRAYSCALE);
+    if(originalImage.empty())
+    {
+        std::cout << "Could not read the image:" << argv[1]<< std::endl;
+        return 1;
+    }
     cv::Mat inputImage = originalImage.clone();
     std::vector<cv::Point2f> points;
     std::cout << "Click Order: TL, BL, BR, TR" << std::endl;
