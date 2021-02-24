@@ -54,7 +54,9 @@ int main( int argc, char** argv)
     cv::Mat angleCorrectedImage = changePerspective(originalImage, points);
     cv::imshow("New Perspective", angleCorrectedImage);
     cv::waitKey(0);
+    cv::imwrite("perspective.jpg",angleCorrectedImage);
     cv::Mat croppedImage = cropImage(angleCorrectedImage);
     cv::imshow("New Perspective + Cropped", croppedImage);
     cv::waitKey(0);
+    cv::imwrite("cropped.jpg",croppedImage);
 }
