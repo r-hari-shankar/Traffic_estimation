@@ -49,9 +49,9 @@ int main(int argc, char* argv[])
         string frameNumberString = ss.str();
         putText(frame, frameNumberString.c_str(), cv::Point(15, 15),
                 FONT_HERSHEY_SIMPLEX, 0.5 , cv::Scalar(0,0,0));
-        /*cv::Mat angleCorrectedImage = changePerspective(frame, points);
-        cv::Mat croppedImage = cropImage(angleCorrectedImage);*/
-        imshow("Density", frame); //error thrown when asked to return cropped image
+        cv::Mat angleCorrectedImage = changePerspective(frame, points);
+        cv::Mat croppedImage = cropImage(angleCorrectedImage);
+        imshow("Density", croppedImage); //error thrown when asked to return cropped imag
         int keyboard = waitKey(30);
         if (keyboard >= 65 && keyboard <= 122 || keyboard == 27)
             break;
