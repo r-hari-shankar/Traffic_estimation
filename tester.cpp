@@ -28,7 +28,7 @@ int main( int argc, char** argv)
         std::cout << points[i].x << " " << points[i].y << std::endl;
     }
     for(int i = 0; i < points.size(); i++) {
-        cv::circle(inputImage, points[i], 3, cv::Scalar(0,0,255-75*i), 5);
+        cv::circle(inputImage, points[i], 3, cv::Scalar(0,0,255), 5);
     }
     cv::destroyWindow("InputImage");
     cv::imshow("SelectedPoints", inputImage);
