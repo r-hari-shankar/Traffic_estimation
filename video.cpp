@@ -40,18 +40,20 @@ int main(int argc, char* argv[])
     points.push_back(Point2f(1264,210));
     while (true) {
         capture >> frame;
+        cv:: Mat grayscale;
         if (frame.empty())
             break;
         rectangle(frame, cv::Point(10, 2), cv::Point(100,20),
                   cv::Scalar(255,255,255), -1);
+        cvtColor(frame, grayscale, COLOR_RGB2GRAY);
         stringstream ss;
         ss << capture.get(CAP_PROP_POS_FRAMES);
         string frameNumberString = ss.str();
         putText(frame, frameNumberString.c_str(), cv::Point(15, 15),
                 FONT_HERSHEY_SIMPLEX, 0.5 , cv::Scalar(0,0,0));
-        cv::Mat angleCorrectedImage = changePerspective(frame, points);
+        cv::Mat angleCorrectedImage = changePerspective(grayscale, points);
         cv::Mat croppedImage = cropImage(angleCorrectedImage);
-        imshow("Density", croppedImage); //error thrown when asked to return cropped imag
+        imshow("Density", croppedImage); 
         int keyboard = waitKey(30);
         if (keyboard >= 65 && keyboard <= 122 || keyboard == 27)
             break;
