@@ -5,8 +5,8 @@
 
 cv::Mat backgroundSubtraction(cv::Mat img) {
     cv::Mat mask;
-    cv::BackgroundSubtractorMOG2 remover;
-    remover.apply(img, mask);
+    cv::Ptr<cv::BackgroundSubtractor> pBackSub;
+    pBackSub->apply(img, mask);
     return mask;
 }
 
