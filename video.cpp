@@ -57,8 +57,8 @@ int main(int argc, char* argv[])
                 FONT_HERSHEY_SIMPLEX, 0.5 , cv::Scalar(0,0,0));
         cv::Mat angleCorrectedImage = changePerspective(grayscale, points);
         cv::Mat croppedImage = cropImage(angleCorrectedImage);
-        //double queue = getQueue(croppedImage,empty);
-        //double dynamic = getDynamic(croppedImage,previous);
+        double queue = getQueue(croppedImage,empty);
+        double dynamic = getDynamic(croppedImage,previous);
         imshow("previous", previous);
         previous = croppedImage;
 
