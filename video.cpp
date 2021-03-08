@@ -33,13 +33,15 @@ int main(int argc, char* argv[])
         cerr << "Unable to open: " << parser.get<String>("input") << endl;
         return 0;
     }
-    Mat frame;
+    cv::Mat frame;
+    cv::Mat empty = cv::imread("cropped_empty.jpg",cv::IMREAD_GRAYSCALE);
+    cv::Mat previous = empty; 
+    //imshow("pic",empty);
     std::vector<cv::Point2f> points;
     points.push_back(Point2f(977,212));
     points.push_back(Point2f(311,1059));
     points.push_back(Point2f(1530,1058));
     points.push_back(Point2f(1264,210));
-    cv::Mat previous;
     while (true) {
         capture >> frame;
         cv:: Mat grayscale;
@@ -57,7 +59,11 @@ int main(int argc, char* argv[])
         cv::Mat croppedImage = cropImage(angleCorrectedImage);
         //double queue = getQueue(croppedImage,empty);
         //double dynamic = getDynamic(croppedImage,previous);
+        imshow("previous", previous);
+        previous = croppedImage;
+
         imshow("Density", croppedImage); 
+
         int keyboard = waitKey(30);
         if (keyboard >= 65 && keyboard <= 122 || keyboard == 27)
             break;
