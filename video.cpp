@@ -3,6 +3,7 @@
 #include "modifierFunctions.hpp"
 #include "bgEditor.hpp"
 #include <sstream>
+#include <fstream>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
@@ -42,6 +43,11 @@ int main(int argc, char* argv[])
     points.push_back(Point2f(311,1059));
     points.push_back(Point2f(1530,1058));
     points.push_back(Point2f(1264,210));
+    cout<<"frame_number"<<" "<<"queue density"<<" "<<"dynamic density"<<"\n";
+    fstream file;
+    file.open("out.txt",ios::out | ios::in);
+    file<<"frame_number"<<" "<<"queue density"<<" "<<"dynamic density"<<endl;
+    int frame_number=0;
     while (true) {
         capture >> frame;
         cv:: Mat grayscale;
@@ -59,13 +65,17 @@ int main(int argc, char* argv[])
         cv::Mat croppedImage = cropImage(angleCorrectedImage);
         double queue = getQueue(croppedImage,empty);
         double dynamic = getDynamic(croppedImage,previous);
+        cout<<frame_number<<" "<<queue<<" "<<dynamic<<"\n";
+        file<<frame_number<<" "<<queue<<" "<<dynamic<<"\n";
+        //imshow("previous", previous);
         previous = croppedImage;
 
         imshow("Density", croppedImage); 
-
+        frame_number++;
         int keyboard = waitKey(30);
         if (keyboard >= 65 && keyboard <= 122 || keyboard == 27)
             break;
     }
+    file.close();
     return 0;
 }
