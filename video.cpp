@@ -59,7 +59,6 @@ int main(int argc, char* argv[])
         cv::Mat croppedImage = cropImage(angleCorrectedImage);
         double queue = getQueue(croppedImage,empty);
         double dynamic = getDynamic(croppedImage,previous);
-        imshow("previous", previous);
         previous = croppedImage;
 
         imshow("Density", croppedImage); 
