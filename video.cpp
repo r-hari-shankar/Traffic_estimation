@@ -12,30 +12,21 @@
 using namespace cv;
 using namespace std;
 
-void mouseClick(int evt, int x, int y, int flags, void* data_ptr)
-{
-    if  ( evt == cv::EVENT_LBUTTONDOWN ){
-        std::vector<cv::Point2f> *data = ((std::vector<cv::Point2f> *) data_ptr);
-        if (data->size() < 4) {
-            data->push_back(cv::Point2f(x,y));
-        }
-    }
-}
-
 int main(int argc, char* argv[])
 {
-    const char* input_file = "{ input          | trafficvideo.mp4 |}";
+    const char* input_file = "{ input          | argv[1] |}";
+    string instream = argv[1];
     CommandLineParser parser(argc, argv, input_file);
     parser.about( "This program shows how to use background subtraction methods provided by "
                   " OpenCV. You can process both videos and images.\n" );
     
-    VideoCapture capture( samples::findFile( parser.get<String>("input") ) );
+    VideoCapture capture( samples::findFile( instream ) );
     if (!capture.isOpened()){
-        cerr << "Unable to open: " << parser.get<String>("input") << endl;
+        cerr << "Unable to open: " << instream << endl;
         return 0;
     }
     cv::Mat frame;
-    cv::Mat empty = cv::imread("cropped_empty.jpg",cv::IMREAD_GRAYSCALE);
+    cv::Mat empty = cv::imread("cropped_road.png",cv::IMREAD_GRAYSCALE);
     cv::Mat previous = empty; 
     //imshow("pic",empty);
     std::vector<cv::Point2f> points;
@@ -46,7 +37,6 @@ int main(int argc, char* argv[])
     cout<<"frame_number"<<" "<<"queue density"<<" "<<"dynamic density"<<"\n";
     fstream file;
     file.open("out.txt",ios::out | ios::in);
-    file<<"frame_number"<<" "<<"queue density"<<" "<<"dynamic density"<<endl;
     int frame_number=0;
     while (true) {
         capture >> frame;
@@ -67,9 +57,7 @@ int main(int argc, char* argv[])
         double dynamic = getDynamic(croppedImage,previous);
         cout<<frame_number<<" "<<queue<<" "<<dynamic<<"\n";
         file<<frame_number<<" "<<queue<<" "<<dynamic<<"\n";
-        //imshow("previous", previous);
         previous = croppedImage;
-
         imshow("Density", croppedImage); 
         frame_number++;
         int keyboard = waitKey(30);
