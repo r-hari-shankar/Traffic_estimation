@@ -88,6 +88,7 @@ int blockWidth, blockHeight;
 
 int main(int argc, char* argv[])
 {
+    auto start = std::chrono::high_resolution_clock::now();
     //To check if input is null
     if(argv[1]==NULL){
         std::cout << "Video input not given ,check readme file for help" << std::endl;
@@ -199,6 +200,9 @@ int main(int argc, char* argv[])
         if (keyboard >= 65 && keyboard <= 122 || keyboard == 27)
             break;
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = duration_cast<std::chrono::seconds>(end - start);
+    file1 << NUM_THREADS << " " << ", runtime: " << duration.count() << "\n";
     file1.close();
     return 0;
 }
