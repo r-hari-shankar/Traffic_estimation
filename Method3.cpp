@@ -184,8 +184,8 @@ int main(int argc, char* argv[])
            sum += td[i].answer;
        }
 
-        file1 << frame_number << " " << sum << "\n";
-        cout << frame_number << " " << sum << "\n";
+        file1 << frame_number << " " << sum/NUM_THREADS << "\n";
+        cout << frame_number << " " << sum/NUM_THREADS << "\n";
         //error += abs(sum - density);
 
         //double queue = getQueue(croppedImage,empty); //stores the queue density
