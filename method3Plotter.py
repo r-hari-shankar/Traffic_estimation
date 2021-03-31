@@ -47,12 +47,12 @@ for j in range(2,9):
 
 plt.figure(0)
 plt.legend()
-plt.savefig("method4Plots.png")
+plt.savefig("method3Plots.png")
 plt.show()
 
 plt.figure(1)
 fig, axs = plt.subplots(3, figsize = (15,15))
-fig.suptitle("Graphs for method 1")
+fig.suptitle("Graphs for method 3")
 axs[1].plot([2,3,4,5,6,7,8], utility)
 axs[1].set(ylabel= 'utility', xlabel= 'parameter')
 axs[1].set_title("Parameter-utility graph")
@@ -63,7 +63,7 @@ lists = sorted(itertools.izip(*[runtime, utility]))
 runtime, utility = list(itertools.izip(*lists))
 axs[0].plot(runtime, utility)
 axs[0].set(ylabel = "utility", xlabel= "runtime")
-plt.savefig("m4_runtime-utilPlot.png")
+plt.savefig("m3_runtime-utilPlot.png")
 plt.show()
 
 
