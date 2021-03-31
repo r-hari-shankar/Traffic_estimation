@@ -1,0 +1,9 @@
+Metrics:
+The metric used for computing the utility is absolute difference method compared to baseline(cpu cores = 1). The runtime is computed in seconds using chronos library.
+
+Method:
+In this method, a frame extracted at a certain point of time is divided in parts equal to the number of cpu cores engaged. This division is done by copying the frame into smaller matrices. The empty image is cropped as well. Queue density is obtained for all the parts and averaged out. 
+
+Tradeoff Analysis:
+From the queue density plots, it is evident that the accuracy to determine density is poor in case of higher number of cores. The reason maybe is availability of less cores in the cpus of the machines on which it is executed. Also from the runtime utility graphs, the utility decreases as the number of vores increases and similarly the runtime decreases to a certain point(the cores that were available) and then increases again.
+The change is remarkable as the time taken to run in single core was almost 1000 seconds and using 2 cores the results changed drastically and we got an acceptable amount of error in half the time.
