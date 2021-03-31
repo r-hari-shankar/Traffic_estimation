@@ -49,13 +49,9 @@ int divideImage(const cv::Mat& img, int numberPartitions, std::vector<cv::Mat>& 
 
 int blockWidth, blockHeight;
 
- if(numberPartitions >= 4) {
-    blockWidth = imgWidth/numberPartitions;
-    blockHeight = imgHeight/numberPartitions;
- } else {
     blockWidth = imgWidth/numberPartitions;
     blockHeight = imgHeight;
- }
+ 
 
  // init block dimensions
  int bwSize;
