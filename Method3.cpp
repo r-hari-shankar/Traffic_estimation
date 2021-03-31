@@ -10,11 +10,11 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/video.hpp>
 #include <pthread.h>
+#include <chrono>
 
 using namespace cv;
 using namespace std;
 
-#define NUM_THREADS 4
 
 struct thread_data {
    int  thread_id;
@@ -84,6 +84,9 @@ int blockWidth, blockHeight;
 
 int main(int argc, char* argv[])
 {
+    cout << "Number of threads: ";
+    int NUM_THREADS;
+    cin >> NUM_THREADS;
     auto start = std::chrono::high_resolution_clock::now();
     //To check if input is null
     if(argv[1]==NULL){
@@ -119,10 +122,10 @@ int main(int argc, char* argv[])
 
     //fstream used to append the output densities in the "out.txt" file
     fstream file1, file2;
-    file1.open("method4.txt",ios::out | ios::in);
+    file1.open("core" + to_string(NUM_THREADS) + ".txt",ios::out | ios::in);
     int frame_number=0; //keeps count of the frame
-    pthread_t threads[NUM_THREADS];
-    struct thread_data td[NUM_THREADS];
+    vector<pthread_t> threads(NUM_THREADS);
+    vector<thread_data> td(NUM_THREADS);
     int rc;
     int i;
 
