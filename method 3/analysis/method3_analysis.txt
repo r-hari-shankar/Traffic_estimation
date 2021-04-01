@@ -1,0 +1,9 @@
+Metrics:
+The metric used for computing the utility is absolute difference method compared to baseline(cpu cores = 1). The runtime is computed in seconds using chronos library.
+
+Method:
+In this method, a frame extracted at a certain point of time is divided in parts equal to the number of cpu cores engaged. This division is done by copying the frame into smaller matrices. The empty image is cropped as well. Queue density is obtained for all the parts and averaged out. 
+
+Tradeoff Analysis:
+From the queue density plots, it is evident that the accuracy to determine density is poor in case of higher number of cores, but that too with acceptable amount of error. The utility/error was constantly increasing with the number of splits as expected because the corner pixels for splitted images are in different environment.
+Also, the runtime is increasing with the parameter. The reason might be that the overhead expenses to create threads, split two images may be greater than the benefits provided by using multi-threads.
